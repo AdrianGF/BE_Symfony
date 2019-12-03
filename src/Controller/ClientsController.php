@@ -35,7 +35,7 @@ class ClientsController extends AbstractController
      */
     
     public function showAll()
-    {
+    {   
         $test = array();
 
         try {
