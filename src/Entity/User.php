@@ -80,6 +80,21 @@ class User implements UserInterface
      */
     protected $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    private $image;
+
 
     /**
      * @return mixed
@@ -265,6 +280,42 @@ class User implements UserInterface
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($dateTimeNow);
         }
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
 }

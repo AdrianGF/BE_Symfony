@@ -1,0 +1,26 @@
+knpu_oauth2_client:
+    # can be set to the service id of a service that implements Guzzle\ClientInterface
+    # http_client: null
+
+    # options to configure the default http client
+    # http_client_options
+    #     timeout: 0
+    #     proxy: null
+    #     Use only with proxy option set
+    #     verify: false
+
+    clients:
+        # will create service: "knpu.oauth2.client.amazon"
+        # an instance of: KnpU\OAuth2ClientBundle\Client\Provider\AmazonClient
+        # composer require luchianenco/oauth2-amazon
+        amazon:
+            # must be "amazon" - it activates that type!
+            type: amazon
+            # add and configure client_id and client_secret in parameters.yml
+            client_id: '%env(OAUTH_AMAZON_CLIENT_ID)%'
+            client_secret: '%env(OAUTH_AMAZON_CLIENT_SECRET)%'
+            # scope: "rubeendaw@gmail.com"
+            # a route name you'll create
+            redirect_route: connect_amazon_check
+            redirect_params: {}
+            # use_state: true
