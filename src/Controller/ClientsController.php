@@ -89,7 +89,7 @@ class ClientsController extends AbstractController
 
         return new JsonResponse([
             'success' => true,
-            'data'    => $data // Your data here
+            'data'    => $data
         ]);
 
         // or render a template

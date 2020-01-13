@@ -1,0 +1,13 @@
+version: '3'  
+services:  
+  php:
+    build: .
+    links:
+      - redis
+    environment:
+      # The "redis" matches the name of the container defined below
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+  redis:
+    image: redis:4-alpine

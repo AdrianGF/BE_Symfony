@@ -67,6 +67,42 @@ class ApiController extends FOSRestController
      * @SWG\Tag(name="User")
      */
     public function getLoginCheckAction() {}
+    /**
+     * @Rest\Post("/update_token", name="user_update_token")
+     * @param $request
+     */
+    public function user_update_token(Request $request) {
+    
+        try {
+            $serializer = $this->get('jms_serializer');
+            $code = 200;
+            $error = false;
+            $content = $request->getContent();
+            $content_decode = json_decode($content, true);
+            $email = $content_decode['email'];
+            $token = $content_decode['token'];
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+            $user->setToken($token);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+        } catch (Exception $ex) {
+            $code = 500;
+            $error = true;
+            $message = "An error has occurred trying to register the user - Error: {$ex->getMessage()}";
+        }
+        
+        $response = [
+            'code' => $code,
+            'error' => $error,
+            'data' => $user
+        ];
+
+        return new Response($serializer->serialize($response, "json"));
+    }
 
     /**
      * @Rest\Post("/register", name="user_register")
