@@ -30,6 +30,33 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+                
+        
+        # main:
+        #     pattern:   ^/test/v1
+        #     anonymous: ~
+        #     logout: ~
+        #     guard:
+        #         authenticators:
+        #             - App\Security\ApiTokenAuthenticator
+        #     http_basic: ~
+        #     form_login:
+        #         login_path: login
+        #         check_path: login
+
     access_control:
         - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

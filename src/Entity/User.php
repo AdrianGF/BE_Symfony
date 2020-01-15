@@ -28,6 +28,14 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class User implements UserInterface
 {
+
+
+    /**
+    * @ORM\Column(type="string", unique=true, nullable=true)
+    */
+    private $apiToken;
+
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
@@ -36,24 +44,24 @@ class User implements UserInterface
     protected $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=150)
+     * @ORM\Column(name="name", type="string", length=150, nullable=true)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $email;
 
     /**
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255,  nullable=true)
      */
     protected $username;
 
     protected $salt;
 
     /**
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255,  nullable=true)
      * @Serializer\Exclude()
      */
     protected $password;
@@ -66,19 +74,34 @@ class User implements UserInterface
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="json_array")
+     * @ORM\Column(name="roles", type="json_array", nullable=true)
      */
     protected $roles = [];
 
     /**
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     protected $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255,  nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @return mixed
@@ -264,6 +287,42 @@ class User implements UserInterface
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($dateTimeNow);
         }
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
 }

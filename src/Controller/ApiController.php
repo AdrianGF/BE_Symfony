@@ -163,4 +163,7 @@ class ApiController extends FOSRestController
         return new Response(sprintf('Logged in as %s', $this->getUser()->getUsername()));
     }
 
+
+
+
 }
